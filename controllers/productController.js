@@ -64,27 +64,30 @@ exports.getallproduct = async (req, res) => {
 
 // delete product 
 
-exports.deleteproduct = async (req, res) => {
+exports.deleteProduct = async (req, res) => {
     try {
-        const productId = req.params.id
-        const existingProduct = await product.findById(productId)
-        if (!existingProduct) {
+        const productId = req.params.id;
+        const result = await product.deleteOne({ _id: productId });
+        
+        if (result.deletedCount === 0) {
             return res.status(404).json({
                 success: false,
                 message: "No Product found with the given ID!"
-            })
+            });
         }
-
-        existingProduct.deleteOne()
 
         res.status(200).json({
             success: true,
             message: "Product has been deleted!",
-        })
+        });
     } catch (error) {
-        console.log(error)
+        console.log(error);
+        res.status(500).json({
+            success: false,
+            message: "Internal Server Error"
+        });
     }
-}
+};
 
 // delete all product 
 
