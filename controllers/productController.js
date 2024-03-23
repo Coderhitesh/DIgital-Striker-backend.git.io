@@ -86,6 +86,30 @@ exports.deleteproduct = async (req, res) => {
     }
 }
 
+// delete all product 
+
+exports.deleteallproduct = async () => {
+    try {
+        const deleteData = product
+        if (!deleteData) {
+            return res.status(404).json({
+                success: false,
+                message: "No Product found"
+            })
+        }
+
+        deleteData.remove()
+
+        res.status(200).json({
+            success: true,
+            message: "Product has been deleted!",
+        })
+        
+    } catch (error) {
+        console.log(error)
+    }
+}
+
 // single page product 
 
 exports.singleProduct = async (req, res) => {
