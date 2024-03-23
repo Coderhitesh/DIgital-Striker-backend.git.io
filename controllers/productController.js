@@ -7,10 +7,12 @@ exports.createProduct = async (req, res) => {
         const {
             name,
             des,
-            img
+            img,
+            category
         } = req.body
 
-        if (!name || !des || !img) {
+        console.log(req.body)
+        if (!name || !des || !img || !category) {
             return res.status(400).json({
                 sucess: false,
                 message: "please provide all fields"
@@ -20,7 +22,8 @@ exports.createProduct = async (req, res) => {
         const newproduct = new product({
             name,
             des,
-            img
+            img,
+            category
         })
 
         await newproduct.save()
